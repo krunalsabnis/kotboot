@@ -1,0 +1,52 @@
+  databaseChangeLog:
+  - changeSet:
+      id: project-table-create
+      author: krunalsabnis@gmail.com
+      changes:
+      - createTable:
+          tableName: project
+          columns:
+          - column:
+              constraints:
+                primaryKey: true
+              name: id
+              type: BIGINT
+              autoIncrement: true
+          - column:
+              constraints:
+                nullable: false
+              name: name
+              type: VARCHAR(20)
+          - column:
+              name: description
+              type: LONGTEXT
+          - column:
+              name: code
+              type: VARCHAR(20)
+          - column:
+              name: icon
+              type: VARCHAR(20)
+          - column:
+              constraints:
+                nullable: false 
+              name: active
+              type: boolean
+          - column:
+              name: user_id
+              type: BIGINT
+          - column:
+              constraints:
+                nullable: false
+              name: timestamp
+              type: DATETIME
+              defaultValueComputed: CURRENT_TIMESTAMP
+
+  - changeSet:
+      id: project-table-add-unique-constraint
+      author: krunalsabnis@gmail.com
+      changes:
+        - addUniqueConstraint:
+            columnNames: code
+            constraintName: unique-code-constraint
+            tableName: project
+              
