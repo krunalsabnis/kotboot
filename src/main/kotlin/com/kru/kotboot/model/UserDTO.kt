@@ -1,22 +1,18 @@
 package com.kru.kotboot.model
 
-import java.util.*
+import com.fasterxml.jackson.annotation.JsonInclude
+import java.time.LocalDateTime
 
-open class UserDTO(val firstName: String,
-                   val lastName: String,
-                   val email: String)
-
-
-class UserDetailsDTO(
-        firstName: String,
-        lastName: String,
-        email: String,
-        val userId: Long,
-        val active: Boolean,
-        val uid: String,
-        val provider: String,
-        val activatedAt: Date,
-        val loginAt: Date,
-        val logoutAt: Date,
-        val timestamp: Date
-        ) : UserDTO(firstName, lastName, email)
+@JsonInclude(value= JsonInclude.Include.NON_NULL)
+data class UserDto(
+        var userId: Long,
+        var uid: String? = null,
+        var firstName: String,
+        var provider: String? = null,
+        var lastName: String,
+        var email: String,
+        var active: Boolean,
+        var activatedAt: LocalDateTime? = null,
+        var loginAt: LocalDateTime? = null,
+        var logoutAt: LocalDateTime? = null,
+        var timestamp: LocalDateTime? = null)

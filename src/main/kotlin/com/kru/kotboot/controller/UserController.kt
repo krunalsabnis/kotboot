@@ -1,41 +1,45 @@
 package com.kru.kotboot.controller
 
-import com.kru.kotboot.com.kru.kotboot.repository.UserRepository
-import com.kru.kotboot.model.User
+import USER_PATH
+import com.kru.kotboot.service.UserService
+import com.kru.kotboot.model.UserDto
+import com.kru.kotboot.model.UserRequest
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
+import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
+import java.util.*
 import javax.validation.Valid
 
 @RestController
-@RequestMapping("/api/v1")
-class UserController(private  val userRepository: UserRepository) {
+@RequestMapping(USER_PATH,
+        produces = [MediaType.APPLICATION_JSON_VALUE] )
+class UserController(private  val userService: UserService) {
+    /*
     @GetMapping("/user")
     fun getAllUsers(@PageableDefault(value = 50) pageable: Pageable): Page<User> =
             userRepository.findAll(pageable)
+     */
+
+    @GetMapping("{userId}")
+    fun getAllUser(@PathVariable("userId") userId: String): Optional<UserDto> =
+            userService.getUser(userId.toLong())
 
     @PostMapping("/user")
-    fun createUser(@Valid @RequestBody user: User): User =
-            userRepository.save(user)
+    fun createUser(@Valid @RequestBody userReq: UserRequest): UserDto =
+            userService.save(userReq)
 
-    /*@GetMapping("/user/{id}")
-    fun getUserById(@PathVariable(value = "userId") userId: Long): ResponseEntity<User> {
-        val user = userRepository.findByUserId(userId)
-                .orElse(ResponseEntity.notFound().build())
+    @PutMapping("{userId}")
+    fun updateUser(@PathVariable("userId") userId: String,
+                   @Valid @RequestBody userUpdateReq: UserDto): UserDto =
+            userService.update(userId.toLong(), userUpdateReq)
 
-    }
+    @DeleteMapping("{userId}")
+    fun deleteUser(@PathVariable("userId") userId: String) =
+           userService.delete(userId.toLong())
 
-    @PutMapping("/user/{id}")
-    fun updateArticleById(@PathVariable(value = "userId") userId: Long,
-                          @Valid @RequestBody newUser: User): ResponseEntity<User> {
-
-        return userRepository.findOne(userId){ existingArticle ->
-            val updatedArticle: Article = existingArticle
-                    .copy(title = newArticle.title, content = newArticle.content)
-            ResponseEntity.ok().body(articleRepository.save(updatedArticle))
-        }.orElse(ResponseEntity.notFound().build())
-
-    }
-    */
+    @GetMapping
+    fun getUsers(@PageableDefault(value = 50)  pageable: Pageable): Page<UserDto> =
+            userService.getUsers(pageable);
 }
