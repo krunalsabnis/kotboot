@@ -12,3 +12,12 @@ gradle-app.setting
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
+.idea/libraries/
+out/
+.idea/workspace.xml
+.idea/modules/kotboot_test.iml
+.idea/modules/kotboot_main.iml
+.idea/modules.xml
+.idea/misc.xml
+.idea/gradle.xml
+.idea/compiler.xml
