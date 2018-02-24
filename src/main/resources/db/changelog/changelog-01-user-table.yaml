@@ -1,0 +1,65 @@
+  databaseChangeLog:
+  - changeSet:
+      id: user-table-create
+      author: krunalsabnis@gmail.com
+      changes:
+      - createTable:
+          tableName: user
+          columns:
+          - column:
+              constraints:
+                primaryKey: true
+              name: user_id
+              type: BIGINT
+              autoIncrement: true
+          - column:
+              name: uid
+              type: VARCHAR(20)
+          - column:
+              name: provider
+              type: VARCHAR(20)
+          - column:
+              constraints:
+                nullable: false
+              name: first_name
+              type: VARCHAR(20)                        
+          - column:
+              constraints:
+                nullable: false
+              name: last_name
+              type: VARCHAR(20)                        
+          - column:
+              constraints:
+                nullable: false
+              name: email
+              type: VARCHAR(50)
+          - column:
+              constraints:
+                nullable: false
+              name: active
+              type: boolean
+          - column:
+              name: activated_at
+              type: DATETIME
+          - column:
+              name: token_at
+              type: DATETIME
+          - column:
+              name: login_at
+              type: DATETIME
+          - column:
+              name: logout_at
+              type: DATETIME
+          - column:
+              name: timestamp
+              type: DATETIME
+              defaultValueComputed: CURRENT_TIMESTAMP
+          
+  - changeSet:
+      id: user-table-add-unique-constraint
+      author: krunalsabnis@gmail.com
+      changes:
+        - addUniqueConstraint:
+            columnNames: email
+            constraintName: unique-email-constraint
+            tableName: user

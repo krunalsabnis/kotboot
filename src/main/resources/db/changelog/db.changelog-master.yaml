@@ -1,0 +1,10 @@
+# append new changeset at the end
+  databaseChangeLog:
+    - include:
+        file: db/changelog/changelog-01-user-table.yaml
+    - include:
+        file: db/changelog/changelog-02-project-table.yaml
+    - include:
+        file: db/changelog/changelog-03-projectdata-load-for-test.yaml
+    - include:
+        file: db/changelog/changelog-04-userdata-load-for-test.yaml

@@ -1,0 +1,31 @@
+  databaseChangeLog:
+  - changeSet:
+      id: load-test-data-in-user-table
+      author: krunalsabnis@gmail.com
+      runOnChange: true
+      context: "test"
+      changes:
+        - delete:
+            tableName: user
+        - loadData:
+            columns:
+              - column:
+                   name: first_name
+                   header: first_name
+                   type: STRING
+              - column:
+                   name: last_name
+                   header: last_name
+                   type: STRING
+              - column:
+                   name: email
+                   header: email
+                   type: STRING
+              - column:
+                   name: active
+                   header: active
+                   type: boolean                   
+            encoding: UTF-8
+            file: db/changelog/data/user-data-v1.csv
+            tableName: user
+ 

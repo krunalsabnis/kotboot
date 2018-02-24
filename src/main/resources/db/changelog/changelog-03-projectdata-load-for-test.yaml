@@ -1,0 +1,39 @@
+  databaseChangeLog:
+  - changeSet:
+      id: load-test-data-in-project-table
+      author: krunalsabnis@gmail.com
+      runOnChange: true
+      context: "test"
+      changes:
+        - delete:
+            tableName: project
+        - loadData:
+            columns:
+              - column:
+                   name: name
+                   header: name
+                   type: STRING
+              - column:
+                   name: description
+                   header: name
+                   type: STRING
+              - column:
+                   name: code
+                   header: code
+                   type: STRING
+              - column:
+                   name: icon
+                   header: icon
+                   type: STRING
+              - column:
+                   name: active
+                   header: icon
+                   type: boolean
+              - column:
+                   name: user_id
+                   header: user_id
+                   type: NUMERIC
+            encoding: UTF-8
+            file: db/changelog/data/project-data-v1.csv
+            tableName: project
+ 
