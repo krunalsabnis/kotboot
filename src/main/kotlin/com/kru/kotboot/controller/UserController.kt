@@ -19,11 +19,6 @@ import javax.validation.Valid
 @RequestMapping(USER_PATH,
         produces = [MediaType.APPLICATION_JSON_VALUE] )
 class UserController(private  val userService: UserService) {
-    /*
-    @GetMapping("/user")
-    fun getAllUsers(@PageableDefault(value = 50) pageable: Pageable): Page<User> =
-            userRepository.findAll(pageable)
-     */
 
     @GetMapping("{userId}")
     @ResponseStatus(HttpStatus.OK)

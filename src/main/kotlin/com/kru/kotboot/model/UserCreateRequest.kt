@@ -8,8 +8,6 @@ import javax.validation.executable.ValidateOnExecution
 
 @Validated
 data class UserCreateRequest(
-        @NotEmpty var firstName: String,
-        @NotEmpty var lastName: String,
-        @Size(min = 1, max = 20)
-        @Pattern(regexp = "^[a-zA-Z]{1,20}")
-        @NotEmpty var email: String)
+        @get:Size(min = 1, max = 20) @get:Pattern(regexp = "^[a-zA-Z]{1,20}") var firstName: String,
+        @get:Size(min = 1, max = 20) @get:Pattern(regexp = "^[a-zA-Z]{1,20}") var lastName: String,
+        @get:Size(min = 4, max = 50) @get:Pattern(regexp = "[^@]+@[^@]+\\.[^@]+") var email: String)
