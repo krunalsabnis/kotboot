@@ -16,8 +16,6 @@ import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import java.util.stream.IntStream
-import org.springframework.http.ResponseEntity
-
 
 
 
@@ -37,6 +35,7 @@ class UserControllerTest : ControllerTest() {
     fun setUp() {
         responseType = object : ParameterizedTypeReference<RestResponsePage<UserDto>>(){}
     }
+
     /**
      * Test POST with valid Request. Then do  GET for USER
      * posts 10 parallel requests to run it quicker
@@ -84,33 +83,5 @@ class UserControllerTest : ControllerTest() {
         responseType = object : ParameterizedTypeReference<RestResponsePage<UserDto>>() {}
         val users = response.body!!.content
         assertEquals(0, users.size)
-    }
-
-    /**
-     * verify 400 (Bad Request) Response when Constraint violated
-     *
-     */
-    @Test
-    fun dVerifyConstraintViolates() {
-        val u = UserCreateRequest("Krunal","Sabnis","email@test.com")
-        val entity = HttpEntity(u, getHeaders())
-        var response = post("/api/v1/user", entity, UserDto::class.java)
-        //assertEquals(HttpStatus.CREATED, response.statusCode)
-
-        // duplicate save attempt
-        var response1 = post("/api/v1/user", entity, UserDto::class.java)
-        assertEquals(HttpStatus.BAD_REQUEST, response1.statusCode)
-    }
-
-    /**
-     * verify 400 (Bad Request) Response when Reuqest Body validation fails
-     *
-     */
-    @Test
-    fun eVerifyBadRequestParameters() {
-        val u = UserCreateRequest("Name-with-Hyphen","LastName","email@test.com")
-        val entity = HttpEntity(u, getHeaders())
-        var response = post("/api/v1/user", entity, UserDto::class.java!!)
-        assertEquals(HttpStatus.BAD_REQUEST, response.statusCode)
     }
 }

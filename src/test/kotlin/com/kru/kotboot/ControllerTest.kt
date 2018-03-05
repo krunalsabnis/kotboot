@@ -1,6 +1,5 @@
 package com.kru.kotboot
 
-
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
@@ -17,7 +16,7 @@ import org.springframework.core.ParameterizedTypeReference
  *
 */
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class ControllerTest : ApplicationTest() {
     @LocalServerPort
     private val port = 8080
@@ -31,33 +30,33 @@ class ControllerTest : ApplicationTest() {
         headers = HttpHeaders()
         //headers.add("Authorization", "Basic " + basicAuth)
         headers.add("Accept", "application/json")
-        headers.add("Accept", "text/plain")
+        //headers.add("Accept", "text/plain")
         return headers
     }
     protected fun createURLWithPort(uri: String): String {
         return "http://localhost:" + port + uri
     }
 
-    protected operator fun get(uri: String, entity: HttpEntity<*>, clazz: Class<*>): ResponseEntity<*> {
-        return restTemplate!!
+    protected fun get(uri: String, entity: HttpEntity<*>, clazz: Class<*>): ResponseEntity<*> {
+        return restTemplate
                 .exchange<Any>(createURLWithPort(uri),
                         HttpMethod.GET, entity, ParameterizedTypeReference.forType(clazz))
     }
 
     protected fun post(uri: String, entity: HttpEntity<*>, clazz: Class<*>): ResponseEntity<*> {
-        return restTemplate!!
+        return restTemplate
                 .exchange<Any>(createURLWithPort(uri),
                         HttpMethod.POST, entity, ParameterizedTypeReference.forType(clazz))
     }
 
     protected fun delete(uri: String, entity: HttpEntity<*>, clazz: Class<*>): ResponseEntity<*> {
-        return restTemplate!!
+        return restTemplate
                 .exchange<Any>(createURLWithPort(uri),
                 HttpMethod.DELETE, entity, ParameterizedTypeReference.forType(clazz))
     }
 
     protected fun put(uri: String, entity: HttpEntity<*>, clazz: Class<*>): ResponseEntity<*> {
-        return restTemplate!!
+        return restTemplate
                 .exchange<Any>(createURLWithPort(uri),
                         HttpMethod.PUT, entity, ParameterizedTypeReference.forType(clazz))
     }
