@@ -1,14 +1,24 @@
 
-
+---
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/kotboot?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
     username: root
-    password: 1234
+    password: root
   jpa:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
         ddl-auto: none
       show-sql: true
+---
+spring:
+  profiles: test
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:qualibrate;MODE=MySQL
+  jpa:
+    show-sql: false
+liquibase:
+  contexts: test
